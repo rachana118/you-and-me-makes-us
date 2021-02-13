@@ -12,7 +12,8 @@ app.use(
         extended: true
     })
 )
-
+app.get('/drop', db.drop)
+app.get('/login', db.loginUser)
 app.get('/users', db.getUsers)
 app.get('/table', db.createTable)
 app.get('/adduser', db.registerUser)
