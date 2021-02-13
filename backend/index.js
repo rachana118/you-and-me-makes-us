@@ -12,10 +12,13 @@ app.use(
         extended: true
     })
 )
-app.get('/drop', db.drop)
+
+app.get('/post', db.getPosts)
+app.get('/create', db.createPost)
+app.get('/drop/:tableName', db.dropTable)
 app.get('/login', db.loginUser)
 app.get('/users', db.getUsers)
-app.get('/table', db.createTable)
+app.get('/table/:tableName', db.createTable)
 app.get('/adduser', db.registerUser)
 
 app.get('/', (request, response) => {

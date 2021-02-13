@@ -20,21 +20,51 @@ var config = {
 const pool = new Pool(config);
 
 const createTable = (request, response) => {
-    pool.query("CREATE TABLE users (id varchar(255), email varchar(255), password varchar(255), hashtag varchar(255));", (err, result) => {
+    const table = request.params.tableName;
+    console.log(table)
+    if(table === 'users') {
+        console.log('USERS')
+        pool.query("CREATE TABLE users (id varchar(255), email varchar(255), password varchar(255), hashtag varchar(255));", (err, result) => {
+            if(err) {
+                throw err
+            }
+            response.status(200).json({message: 'User Table Created!'})
+        })
+    }
+    else if(table === 'posts') {
+        console.log('POSTS')
+        pool.query("CREATE TABLE posts (id varchar(255), timestamp varchar(255), caption varchar(255), photo varchar(500000));", (err, result) => {
+            if(err) {
+                throw err
+            }
+            response.status(200).json({message: 'Posts Table Created!'})
+        })
+    }
+}
+
+const dropTable = (request, response) => {
+    const table = request.params.tableName;
+    console.log(table)
+    pool.query(`DROP TABLE ${table}`, (err, result) => {
         if(err) {
             throw err
         }
-        response.status(200).json(result.rows)
+        response.status(200).json({ message: `Table ${table} drop.`})
     })
 }
 
-const drop = (request, response) => {
-    pool.query('DROP TABLE users', (err, result) => {
-        if(err) {
-            throw err
-        }
-        response.status(200).json(result.rows)
-    })
+const createPost = (request, response) => {
+    const id = request.form.id;
+    const timestamp = Date.now()
+    const caption = request.form.caption
+    // const image = request.files
+    console.log(id, caption)
+    // pool.query(`INSERT INTO users (id, timestamp, caption, image) VALUES ('${id}', '${timestamp}', '${caption}', '${image}');`, (err, result) => {
+    //     if(err) {
+    //         throw err
+    //     }
+    //     response.status(200).json({ message: 'Post Created!'})
+    // })
 }
 
 const loginUser = (request, response) => {
@@ -75,6 +105,15 @@ const getUsers = (request, response) => {
     })
 }
 
+const getPosts = (request, response) => {
+    pool.query('SELECT * FROM posts', (err, result) => {
+        if(err) {
+            throw err
+        }
+        response.status(200).json(result.rows)
+    })
+}
+
 module.exports = {
-  getUsers, createTable, registerUser, drop, loginUser
+  getUsers, createTable, registerUser, dropTable, loginUser, createPost, getPosts
 }
