@@ -48,3 +48,77 @@ a {
 a:visited {
   color: inherit;
 }
+
+.uploadPost input {
+  width: 100%;
+}
+
+.uploadPost {
+  margin-bottom: 1rem;
+  padding: 10px;
+  border: 1px solid #777;
+  border-radius: 8px;  
+}
+
+.home {
+  margin: 1rem;
+  border-radius: 5px;
+}
+
+.posts {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.account {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 95vh;
+  position: fixed;
+  min-width: 350px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.post {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid #777;
+  border-radius: 8px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: .5rem;
+}
+
+.img-res {
+  width: 100%;
+}
+
+.post-user {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+
+.post-time {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.loggedUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userName {
+  font-size: 2.25rem;
+}
