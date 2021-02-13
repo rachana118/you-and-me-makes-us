@@ -14,7 +14,7 @@ app.use(
 )
 
 app.get('/post', db.getPosts)
-app.get('/create', db.createPost)
+app.post('/create', db.createPost)
 app.get('/drop/:tableName', db.dropTable)
 app.get('/login', db.loginUser)
 app.get('/users', db.getUsers)

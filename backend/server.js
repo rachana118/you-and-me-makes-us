@@ -33,7 +33,7 @@ const createTable = (request, response) => {
     }
     else if(table === 'posts') {
         console.log('POSTS')
-        pool.query("CREATE TABLE posts (id varchar(255), timestamp varchar(255), caption varchar(255), photo varchar(500000));", (err, result) => {
+        pool.query("CREATE TABLE posts (id varchar(255), time varchar(255), caption varchar(255), photo varchar(255));", (err, result) => {
             if(err) {
                 throw err
             }
@@ -54,17 +54,16 @@ const dropTable = (request, response) => {
 }
 
 const createPost = (request, response) => {
-    const id = request.form.id;
+    const id = request.body.id;
     const timestamp = Date.now()
-    const caption = request.form.caption
-    // const image = request.files
-    console.log(id, caption)
-    // pool.query(`INSERT INTO users (id, timestamp, caption, image) VALUES ('${id}', '${timestamp}', '${caption}', '${image}');`, (err, result) => {
-    //     if(err) {
-    //         throw err
-    //     }
-    //     response.status(200).json({ message: 'Post Created!'})
-    // })
+    const caption = request.body.caption
+    const image = request.body.image
+    pool.query(`INSERT INTO posts (id, time, caption, photo) VALUES ('${id}', '${timestamp}', '${caption}', '${image}');`, (err, result) => {
+        if(err) {
+            throw err
+        }
+        response.status(200).json({ message: 'Post Created!'})
+    })
 }
 
 const loginUser = (request, response) => {
