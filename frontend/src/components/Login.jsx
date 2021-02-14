@@ -26,7 +26,7 @@ function Login() {
             email,
             password
         }
-        axios.post("http://localhost:3001/login", user).then(async response => {
+        axios.post("http://localhost:26257/login", user).then(async response => {
             const data = response.data;
             console.log(data);
             if(data.auth === true) {
@@ -47,13 +47,13 @@ function Login() {
                     <div className="label">
                         Email
                     </div>
-                    <input type="text" name="email" onChange={event => onChangeHandler(event)}/>
+                    <input type="text" name="email" autocomplete="off" onChange={event => onChangeHandler(event)}/>
                 </div>
                 <div className="box">
                     <div className="label">
                         Password
                     </div>
-                    <input type="password" name="password" onChange={event => onChangeHandler(event)}/>
+                    <input type="password" name="password" autocomplete="off" onChange={event => onChangeHandler(event)}/>
                 </div>
                 <div className="box">
                     <button className="btn" onClick={event => {loginUserWithEmailAndPasswordHandler(event, email, password);}}>Login</button>

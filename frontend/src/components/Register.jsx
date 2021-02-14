@@ -30,7 +30,7 @@ function Register() {
             password, 
             hashtag
         }
-        axios.post("http://localhost:3001/adduser", user).then(async response => {
+        axios.post("http://localhost:26257/adduser", user).then(async response => {
             const data = response.data;
             console.log(data);
             setEmail('')
@@ -50,19 +50,19 @@ function Register() {
                     <div className="label">
                         Email
                     </div>
-                    <input type="text" name="email" placeholder="john@gmail.com" onChange={event => onChangeHandler(event)}/>
+                    <input type="text" name="email" placeholder="john@gmail.com" autocomplete="off" onChange={event => onChangeHandler(event)}/>
                 </div>
                 <div className="box">
                     <div className="label">
                         Password
                     </div>
-                    <input type="password" name="password" placeholder="******" onChange={event => onChangeHandler(event)}/>
+                    <input type="password" name="password" placeholder="******" autocomplete="off" onChange={event => onChangeHandler(event)}/>
                 </div>
                 <div className="box">
                     <div className="label">
                         Your Couple Hashtag #
                     </div>
-                    <input type="type" name="hashtag" placeholder="#Virushka" onChange={event => onChangeHandler(event)}/>
+                    <input type="type" name="hashtag" placeholder="#Virushka" autocomplete="off" onChange={event => onChangeHandler(event)}/>
                 </div>
                 <div className="box">
                     <button className="btn" onClick={event => {createUserWithEmailAndPasswordHandler(event, email, password, hashtag);}}>Sign up</button>

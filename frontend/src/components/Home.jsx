@@ -47,7 +47,7 @@ function Home() {
                 caption: captionType,
                 image: data.url
             }
-            await axios.post("http://localhost:3001/create", postForm).then(async response => {
+            await axios.post("http://localhost:26257/create", postForm).then(async response => {
                 const data = response.data;
                 console.log(data.message);
                 setSelectedFile(null)
@@ -68,7 +68,7 @@ function Home() {
     const getPost = async (x) => {
         console.log(x)
         var data;
-        axios.get("http://localhost:3001/post").then(response => {
+        axios.get("http://localhost:26257/post").then(response => {
             data = response.data;
             setPosts(data)
         })
@@ -92,7 +92,7 @@ function Home() {
                                         </div>
                                     </div>
                                     <div>
-                                        <button onClick={() => SignOut()}>Logout</button>
+                                        <center><button className="btn btn-primary btnn" style={{color: 'black'}} onClick={() => SignOut()}>LOGOUT</button></center>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@ function Home() {
                                                     <input type="file" name="image" onChange={(e) => onFileChange(e)}/>
                                                 </div>
                                                 <div className="col-md-4">
-                                                    <input type="submit" value="SUBMIT"/>
+                                                    <input type="submit" style={{color: 'black'}} className="btn btn-primary btnn" value="POST"/>
                                                 </div>
                                             </div>
                                         </form>
