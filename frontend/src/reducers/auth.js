@@ -1,6 +1,7 @@
-export const SIGN_IN = () => {
+export const SIGN_IN = (pay) => {
     return  {
-        type: 'SIGN_IN'
+        type: 'SIGN_IN',
+        payload: pay
     }
 }
 
@@ -10,12 +11,14 @@ export const SIGN_OUT = () => {
     }
 }
 
-const AUTH = (state = false, action) => {
+
+const AUTH = (state = null, action) => {
     switch(action.type) {
         case 'SIGN_IN': 
-            return true
+            const payload = action.payload
+            return {...state, payload}
         case 'SIGN_OUT':
-            return false
+            return null
         default:
             return state
     }

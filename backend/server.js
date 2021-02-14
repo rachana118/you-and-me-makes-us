@@ -33,7 +33,7 @@ const createTable = (request, response) => {
     }
     else if(table === 'posts') {
         console.log('POSTS')
-        pool.query("CREATE TABLE posts (id varchar(255), time varchar(255), caption varchar(255), photo varchar(255));", (err, result) => {
+        pool.query("CREATE TABLE posts (id varchar(255), hashtag varchar(255), time varchar(255), caption varchar(255), photo varchar(255));", (err, result) => {
             if(err) {
                 throw err
             }
@@ -54,11 +54,14 @@ const dropTable = (request, response) => {
 }
 
 const createPost = (request, response) => {
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    var today  = new Date();
     const id = request.body.id;
-    const timestamp = Date.now()
+    const timestamp = today.toLocaleDateString("en-US", options)
     const caption = request.body.caption
     const image = request.body.image
-    pool.query(`INSERT INTO posts (id, time, caption, photo) VALUES ('${id}', '${timestamp}', '${caption}', '${image}');`, (err, result) => {
+    const hashtag = request.body.hashtag
+    pool.query(`INSERT INTO posts (id, hashtag, time, caption, photo) VALUES ('${id}', '${hashtag}', '${timestamp}', '${caption}', '${image}');`, (err, result) => {
         if(err) {
             throw err
         }
@@ -74,7 +77,7 @@ const loginUser = (request, response) => {
             throw err
         }
         if(result.rows[0].password===password) {
-            response.status(200).json({auth: true, userID: result.rows[0].id})
+            response.status(200).json({auth: true, userID: result.rows[0].id, hashtag: result.rows[0].hashtag})
         } else {
             response.status(200).json({auth: false})
         }
@@ -91,7 +94,7 @@ const registerUser = (request, response) => {
         if(err) {
             throw err
         }
-        response.status(200).json({ message: 'User Created!'})
+        response.status(200).json({ message: 'User Created!' })
     })
 }
 

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Redirect, Link } from "react-router-dom";
-import { SIGN_IN } from '../reducers/auth';
+import { SIGN_IN, SET_AUTH_ID } from '../reducers/auth';
 import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -21,6 +22,18 @@ function Login() {
     const loginUserWithEmailAndPasswordHandler = (event, email, password) => {
         event.preventDefault();
         // API CALL
+        const user = {
+            email,
+            password
+        }
+        axios.post("http://localhost:3001/login", user).then(async response => {
+            const data = response.data;
+            console.log(data);
+            if(data.auth === true) {
+                dispatch(SIGN_IN(data))
+                // dispatch(SET_AUTH_ID(data.userID))
+            }
+        })
     }
 
     return (

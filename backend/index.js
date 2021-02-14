@@ -16,10 +16,10 @@ app.use(
 app.get('/post', db.getPosts)
 app.post('/create', db.createPost)
 app.get('/drop/:tableName', db.dropTable)
-app.get('/login', db.loginUser)
+app.post('/login', db.loginUser)
 app.get('/users', db.getUsers)
 app.get('/table/:tableName', db.createTable)
-app.get('/adduser', db.registerUser)
+app.post('/adduser', db.registerUser)
 
 app.get('/', (request, response) => {
     response.json({ message: 'Test!'})

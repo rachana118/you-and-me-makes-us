@@ -12,11 +12,12 @@ function Home() {
     const [captionType, setCaptionType] = useState("")
     const [posts, setPosts] = useState([])
     const dispatch = useDispatch();
-    // const isLogged = useSelector(state => state.isLogged)
-    const isLogged = true
+    const isLogged = useSelector(state => state.isLogged)
+    // const isLogged = true
     const SignOut = () => {
         console.log('Sign Out')
         // API CALL
+        dispatch(SIGN_OUT())
     }
 
     function handleChange(e) {
@@ -41,13 +42,16 @@ function Home() {
             console.log(data.url);
 
             const postForm = {
-                id: "this.state.ID",
+                id: isLogged.payload.userID,
+                hashtag: isLogged.payload.hashtag,
                 caption: captionType,
                 image: data.url
             }
             await axios.post("http://localhost:3001/create", postForm).then(async response => {
                 const data = response.data;
                 console.log(data.message);
+                setSelectedFile(null)
+                setCaptionType('')
                 await getPost()
             })
         })
@@ -84,7 +88,7 @@ function Home() {
                                             <img src="https://cdn.iconscout.com/icon/free/png-256/boy-avatar-4-1129037.png" height="250" width="auto" alt="" className="src"/>
                                         </div>
                                         <div>
-                                            <div className="userName">Devarsh Panchal</div>
+                                            <div className="userName">{isLogged.payload.hashtag}</div>
                                         </div>
                                     </div>
                                     <div>
@@ -109,7 +113,7 @@ function Home() {
                                     </div>
                                     <div className="allPosts">
                                         {
-                                            posts?.map((post) => {
+                                            posts?.slice(0).reverse().map((post) => {
                                                 return(
                                                     <div className="post">
                                                         <div className="profile">
@@ -117,9 +121,12 @@ function Home() {
                                                                 <img src="https://cdn.iconscout.com/icon/free/png-256/boy-avatar-4-1129037.png" height="60" width="auto" alt="" className="src"/>
                                                             </div>
                                                             <div>
-                                                                <div className="post-user">{post.id}</div>
+                                                                <div className="post-user">{post.hashtag}</div>
                                                                 <div className="post-time">{post.time}</div>
                                                             </div>
+                                                        </div>
+                                                        <div className="caption">
+                                                            {post.caption}
                                                         </div>
                                                         <div className="image">
                                                             <img class="img-res" src={post.photo} />
